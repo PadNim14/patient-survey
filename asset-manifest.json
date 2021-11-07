@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/patient-survey/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/patient-survey/static/js/main.ee8db8ce.chunk.js",
+    "main.js.map": "/patient-survey/static/js/main.ee8db8ce.chunk.js.map",
+    "runtime-main.js": "/patient-survey/static/js/runtime-main.063a5cf2.js",
+    "runtime-main.js.map": "/patient-survey/static/js/runtime-main.063a5cf2.js.map",
+    "static/css/2.edad5ea1.chunk.css": "/patient-survey/static/css/2.edad5ea1.chunk.css",
+    "static/js/2.3749c048.chunk.js": "/patient-survey/static/js/2.3749c048.chunk.js",
+    "static/js/2.3749c048.chunk.js.map": "/patient-survey/static/js/2.3749c048.chunk.js.map",
+    "static/js/3.f90e272e.chunk.js": "/patient-survey/static/js/3.f90e272e.chunk.js",
+    "static/js/3.f90e272e.chunk.js.map": "/patient-survey/static/js/3.f90e272e.chunk.js.map",
+    "index.html": "/patient-survey/index.html",
+    "static/css/2.edad5ea1.chunk.css.map": "/patient-survey/static/css/2.edad5ea1.chunk.css.map",
+    "static/css/main.8c8b27cf.chunk.css.map": "/patient-survey/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.3749c048.chunk.js.LICENSE.txt": "/patient-survey/static/js/2.3749c048.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/patient-survey/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.063a5cf2.js",
+    "static/css/2.edad5ea1.chunk.css",
+    "static/js/2.3749c048.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.ee8db8ce.chunk.js"
+  ]
+}
