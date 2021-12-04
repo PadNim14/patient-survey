@@ -1,8 +1,5 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-//import "firebase/compat/credentials";
-//import "firebase/auth";
-//import "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -11,8 +8,8 @@ const firebaseConfig = {
   projectId: "hit-with-database",
   storageBucket: "hit-with-database.appspot.com",
   messagingSenderId: "674336402509",
-  appId: "1:674336402509:web:de9c2fecaf15c008aa8004",
-  measurementId: "G-D6VXTFGF0R"
+  appId: "1:674336402509:web:4527992724f50c76aa8004",
+  measurementId: "G-PPKFSB0ML3"
 };
 
 const firebaseInitial = firebase.initializeApp(firebaseConfig);
