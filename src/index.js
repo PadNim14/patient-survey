@@ -21,7 +21,7 @@ choices: [{ value: "Female", text: "Female" }, { value: "Male", text: "Male" }, 
 { type: "text", name: "question5Other", title: "Emergency Contact 2", isRequired: true, requiredErrorText: "Enter emergency contact 2"},
 { type: "text", name: "question4", title: "Street Address", isRequired: true, requiredErrorText: "Enter street address" },
 { type: "text", name: "question6", title: "County", isRequired: true, requiredErrorText: "Enter county" },
-{ type: "text", name: "question7", title: "Priority", isRequired: true, requiredErrorText: "Enter priority" },
+{ type: "number", name: "question7", title: "Priority", isRequired: true, requiredErrorText: "Enter priority" },
 { type: "text", name: "question9", title: "Program"},
 { type: "comment", name: "question10", title: "Medical History" }] }] }
 
