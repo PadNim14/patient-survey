@@ -13,47 +13,41 @@ var surveyJSON = { title: "Enter New Patient", description: "Use this questionna
 pages: [{ name: "page1",
 elements: [{ type: "text", name: "question1", title: "Full Name", isRequired: true, requiredErrorText: "Enter full name." },
 { type: "radiogroup", name: "question11", title: "Gender",
-choices: [{ value: "item1", text: "Female" }, { value: "item2", text: "Male" }, { value: "item3", text: "Other" }, { value: "item4", text: "Prefer not to say" }] },
+choices: [{ value: "Female", text: "Female" }, { value: "Male", text: "Male" }, { value: "Other", text: "Other" }, { value: "Not_preferred", text: "Prefer not to say" }] },
 { type: "text", name: "question10Other", title: "Age", isRequired: true, requiredErrorText: "Enter age"},
-{ type: "text", name: "question2", title: "Phone Number", isRequired:true, requiredErrorText: "Enter phone number",
-validators:
-    {
-    type: "regex",
-    text: 'Enter a valid phone number',
-    regex: "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$"
-    }},
+{type: "text", name: "question3", title: "Race", isRequired: true, requiredErrorText: "Enter race" },
+{ type: "text", name: "question2", title: "Appointment Day", isRequired:true, requiredErrorText: "Enter appointment day",},
 { type: "text", name: "question5", title: "Emergency Contact 1", isRequired: true, requiredErrorText: "Enter emergency contact 1"},
 { type: "text", name: "question5Other", title: "Emergency Contact 2", isRequired: true, requiredErrorText: "Enter emergency contact 2"},
-{ type: "text", name: "question3", title: "Email Address", isRequired: true, requiredErrorText: "Enter email address",
-validators: 
-{
-    type: "email"
-} },
 { type: "text", name: "question4", title: "Street Address", isRequired: true, requiredErrorText: "Enter street address" },
 { type: "text", name: "question6", title: "County", isRequired: true, requiredErrorText: "Enter county" },
-{ type: "text", name: "question7", title: "Primary Diagonsis" },
-{ type: "text", name: "question8", title: "Secondary Diagonsis" },
-{ type: "radiogroup", name: "question9", title: "Type of Care", choices: [{ value: "item1", text: "Frequent" }, { value: "item2", text: "Infrequent" }, { value: "item3", text: "Need-Based" }] },
-{ type: "comment", name: "question10", title: "Other Important Information" }] }] }
+{ type: "text", name: "question7", title: "Priority", isRequired: true, requiredErrorText: "Enter priority" },
+{ type: "text", name: "question9", title: "Program"},
+{ type: "comment", name: "question10", title: "Medical History" }] }] }
 
+function getRandomInRange(from, to, fixed) {
+    return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
+    // .toFixed() returns string, so ' * 1' is a trick to convert to number
+}
 
 function sendDataToServer(survey) {
     console.log("Survey results: " + JSON.stringify(survey.data["question1"]));
-
+    
     //db.collection("nurses").document(nurses.nursesId).collection("patients_profiles").
-    db.collection("Patient Profiles").add({
-        Name: JSON.stringify(survey.data["question1"]),
-        Gender: JSON.stringify(survey.data["question11"]),
-        Age: JSON.stringify(survey.data["question10Other"]),
-        Phone_Number: JSON.stringify(survey.data["question2"]),
-        Emergency_Contact1: JSON.stringify(survey.data["question5"]),
-        Emergency_Contact2: JSON.stringify(survey.data["question5Other"]),
-        Street_Address: JSON.stringify(survey.data["question4"]),
-        County: JSON.stringify(survey.data["question6"]),
-        Primary_Diagnonsis: JSON.stringify(survey.data["question7"]),
-        Secondary_Diagnonsis: JSON.stringify(survey.data["question8"]),
-        Type_of_Care: JSON.stringify(survey.data["question8"]),
-        Other_Important_Information: JSON.stringify(survey.data["question9"]),
+    db.collection("patients").add({
+        name: survey.data["question1"],
+        gender_id: survey.data["question11"],
+        age: (survey.data["question10Other"]),
+        appointment_day: survey.data["question2"],
+        contact1: survey.data["question5"],
+        contact2: survey.data["question5Other"],
+        address: survey.data["question4"],
+        zone: survey.data["question6"],
+        coords: (getRandomInRange(40, 50, 3) + ", " + getRandomInRange(-85, -80, 2)),
+        race: (survey.data["question3"]),
+        program: survey.data["question9"],
+        medical_history: (survey.data["question10"]),
+        priority: survey.data["question7"]
     })
     .then(() => {
         console.log("Document successfully written!");
