@@ -15,4 +15,7 @@ const firebaseConfig = {
 const firebaseInitial = firebase.initializeApp(firebaseConfig);
 const db = firebaseInitial.firestore();
 
-export { firebaseInitial, db };
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+export {MongoClient, url};

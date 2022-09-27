@@ -5,7 +5,8 @@ import App from './App';
 import "survey-react/survey.css";
 import * as Survey from "survey-react";
 import reportWebVitals from './reportWebVitals';
-import {firebaseInitial, db} from './config.js';
+import {MongoClient, url} from './config.js';
+
 
 Survey.StylesManager.applyTheme("darkrose");
 
@@ -26,40 +27,64 @@ choices: [{ value: "Female", text: "Female" }, { value: "Male", text: "Male" }, 
 { type: "text", name: "question13", title: "Primary Diagnosis", isRequired: true, requiredErrorText: "Enter primary diagnosis" },
 { type: "comment", name: "question10", title: "Additional Diagnoses", isRequired: true, requiredErrorText: "Enter additional diagnoses" }] }] }
 
-function getRandomInRange(from, to, fixed) {
-    return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-    // .toFixed() returns string, so ' * 1' is a trick to convert to number
-}
 
 function sendDataToServer(survey) {
     console.log("Survey results: " + JSON.stringify(survey.data["question1"]));
 
     const date = new Date();
-    const today = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;  
+    const today = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 
-    db.collection("patients").add({
-        name: survey.data["question1"],
-        gender_id: survey.data["question11"],
-        age: (survey.data["question10Other"]),
-        appointment_day: survey.data["question2"],
-        medic: survey.data["question12"],
-        contact1: survey.data["question5"],
-        contact2: survey.data["question5Other"],
-        address: survey.data["question4"],
-        zone: survey.data["question6"],
-        race: (survey.data["question3"]),
-        program: survey.data["question9"],
-        diagnosis1: survey.data["question13"],
-        diagnosis2: (survey.data["question10"]),
-        priority: 3,
-        start_date: today
+    // db.collection("patients").add({
+    //     name: survey.data["question1"],
+    //     gender_id: survey.data["question11"],
+    //     age: (survey.data["question10Other"]),
+    //     appointment_day: survey.data["question2"],
+    //     medic: survey.data["question12"],
+    //     contact1: survey.data["question5"],
+    //     contact2: survey.data["question5Other"],
+    //     address: survey.data["question4"],
+    //     zone: survey.data["question6"],
+    //     race: (survey.data["question3"]),
+    //     program: survey.data["question9"],
+    //     diagnosis_1: survey.data["question13"],
+    //     diagnosis_2: (survey.data["question10"]),
+    //     priority: 4,
+    //     start_date: today
+    // })
+    //MongoDB Translation ===================================== ===================================== ===================================== =====================================
+
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("hit-with-database");
+      var myobj = {
+        "name": String(survey.data["question1"]),
+        "gender_id": String(survey.data["question11"]),
+        "age": String(survey.data["question10Other"]),
+        "appointment_day": String(survey.data["question2"]),
+        "medic": String(survey.data["question12"]),
+        "contact1": String(survey.data["question5"]),
+        "contact2": String(survey.data["question5Other"]),
+        "address": String(survey.data["question4"]),
+        "zone": String(survey.data["question6"]),
+        "race": String(survey.data["question3"]),
+        "program": String(survey.data["question9"]),
+        "diagnosis_1": String(survey.data["question13"]),
+        "diagnosis_2": String(survey.data["question10"]),
+        "priority": 4,
+        "start_date": String(today)
+      };
+      dbo.collection("patients").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+        db.close();
+      });
     })
-    .then(() => {
-        console.log("Document successfully written!");
-    })
-    .catch((error) => {
-        console.error("Error writing document: ", error);
-    });
+    // .then(() => {
+    //     console.log("Document successfully written!");
+    // })
+    // .catch((error) => {
+    //     console.error("Error writing document: ", error);
+    // });
 }
 
 
